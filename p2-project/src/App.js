@@ -1,26 +1,28 @@
 import logo from './logo.svg';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import ScoreScroll from './Components/ScoreScroll';
 import CountryContainer from './Components/CountryContainer';
 import constants from "./Components/Constants.js"
 import TeamList from './Components/TeamList';
 
+const teamsUrl = `http://localhost:3001/teams`
+
 function App() {
 
-  useEffect(
-    () => {
-      const url = `${constants.externalUrl}${constants.livescores}?api_token=${process.env.api_token}`
-      console.log(url)
+  const [teams, setTeams] = useState([])
 
-    }, []
-  )
+  useEffect(() => {
+    fetch(teamsUrl)
+        .then(r => r.json())
+        .then(teamsData => setTeams(teamsData))
+  }, [])
 
   return (
     <div className="App">
-      <ScoreScroll/>
+      <ScoreScroll teams={teams}/>
       <CountryContainer/>
-      <TeamList />
+      <TeamList teams={teams}/>
     </div>
   );
 }

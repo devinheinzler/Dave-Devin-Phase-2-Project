@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react"
 import TeamCard from "./TeamCard"
 import './TeamList.css'
 
-const teamsUrl = `http://localhost:3001/teams`
-
-function TeamList () {
-
-const [teams, setTeams] = useState([])
+function TeamList (props) {
 
 const [clickedTeam, setClickedTeam] = useState({})
 
@@ -15,11 +11,8 @@ function handleClick(team) {
     setClickedTeam(team)
 }
 
-useEffect(() => {
-    fetch(teamsUrl)
-        .then(r => r.json())
-        .then(teamsData => setTeams(teamsData))
-}, [])
+const teams = props.teams
+
 
     return (
         <div> 
