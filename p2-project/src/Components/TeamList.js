@@ -8,6 +8,13 @@ function TeamList () {
 
 const [teams, setTeams] = useState([])
 
+const [clickedTeam, setClickedTeam] = useState({})
+
+function handleClick(team) {
+    console.log(team)
+    setClickedTeam(team)
+}
+
 useEffect(() => {
     fetch(teamsUrl)
         .then(r => r.json())
@@ -15,13 +22,21 @@ useEffect(() => {
 }, [])
 
     return (
-        teams.map(team => 
-            <div className="card-list" key={team.id}>
-                <ul>
-                    <li>{team.name} ({team.short_code})</li>
-                </ul>
-            </div>
-            )
+        <div> 
+            {teams.map(team => 
+                <div className="card-list" key={team.id}>
+                    <ul>
+                        <li onClick={() => handleClick(team)}>{team.name} ({team.short_code})</li>
+                    </ul>
+                </div>
+                )
+            }
+            {
+                clickedTeam.name ? 
+                <TeamCard team={clickedTeam}/> : null
+                
+            }
+        </div>
     )
 }
 

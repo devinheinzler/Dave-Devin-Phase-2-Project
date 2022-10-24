@@ -1,20 +1,11 @@
-import React, {useState, useEffect} from "react"
+import React from "react"
 
 const teamsUrl = `http://localhost:3001/teams`
 
 
-function TeamCard() {
+function TeamCard({team}) {
 
-const [teams, setTeams] = useState([])
-
-useEffect(() => {
-    fetch(teamsUrl)
-        .then(r => r.json())
-        .then(teamsData => setTeams(teamsData))
-}, [])
-
-    return (
-        teams.map(team => 
+    return ( 
         <div className="card" key={team.id}>
             <h2>{team.name} ({team.short_code})</h2>
             <h3>{team.twitter}</h3>
@@ -24,6 +15,6 @@ useEffect(() => {
             </h4>
         </div>
     )
-)}
+}
 
 export default TeamCard
