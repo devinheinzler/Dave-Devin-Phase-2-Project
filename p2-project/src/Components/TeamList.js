@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import TeamCard from "./TeamCard"
+import './TeamList.css'
 
 const teamsUrl = `http://localhost:3001/teams`
 
@@ -16,7 +17,9 @@ useEffect(() => {
     return (
         teams.map(team => 
             <div className="card-list" key={team.id}>
-                <li>{team.name} ({team.short_code})</li>
+                <ul>
+                    <li>{team.name} ({team.short_code})</li>
+                </ul>
             </div>
             )
     )
