@@ -4,6 +4,7 @@ import './App.css';
 import ScoreScroll from './Components/ScoreScroll';
 import CountryContainer from './Components/CountryContainer';
 import constants from "./Components/Constants.js"
+import TeamList from './Components/TeamList';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
     <div className="App">
       <ScoreScroll/>
       <CountryContainer/>
+      <TeamList />
     </div>
   );
 }
