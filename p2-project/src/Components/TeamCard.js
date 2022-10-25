@@ -12,9 +12,9 @@ function TeamCard(props) {
     
     const params = useParams()
 
-    console.log(props)
-
     const favoritePlayers = props.favoritePlayers
+
+    console.log("TeamCard: ", favoritePlayers)
 
     useEffect(
         () => {
@@ -23,14 +23,13 @@ function TeamCard(props) {
                     setTeam(team)
                     fetch(playersUrl + params.teamId).then(res=>res.json()).then(players=>{
                         setPlayers(players)
-                        console.log(players)
                     })
                 })
         }, []
     )
 
     const isFavorite = (id) => {
-        if (favoritePlayers && favoritePlayers.filter(p=>p == id).length > 0) {
+        if (favoritePlayers && favoritePlayers.filter(p=>p.player_id == id).length > 0) {
             return "UnFavorite"
         } else {
             return " Favorite "

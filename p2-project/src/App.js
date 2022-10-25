@@ -26,23 +26,61 @@ function App() {
 
     fetch(constants.favoritePlayersUrl)
       .then(r=> r.json())
-      .then(players => setFavoritePlayers(players.map(p=>p.id)))
+      .then(players => setFavoritePlayers(players))
   }, [])
 
   const teamClicked = () => {
     setTeamClickedVal(teamClickedVal + 1)
   }
 
+  const updateFavoritePlayerInDatabase = (player, action) => {
+
+  }
+
   const favoriteClicked = (id) => {
-    console.log("favoriteClicked: ", id)
-    console.log(favoritePlayers)
+    console.log("FavoriteClicked: ", id)
     if (favoritePlayers.length > 0) {
-      if (favoritePlayers.filter(p=>p==id).length > 0)
-        setFavoritePlayers(favoritePlayers.filter(p=>p != id))
-      else
-        setFavoritePlayers([...favoritePlayers, id])
+      const thisPlayer = favoritePlayers.filter(p=>p.player_id==id)
+      if (thisPlayer.length > 0)
+      {
+        console.log("Remove")
+        // remove from database
+        const deleteUrl = constants.favoritePlayersUrl + "/" + thisPlayer[0].id
+        fetch(deleteUrl, {
+          method:'DELETE'
+        }).then(res=>res.json()).then(setFavoritePlayers(favoritePlayers.filter(p=>p.player_id != id))).catch(e => console.log("Delete error: ", e))
+      }
+      else {
+        console.log("Insert")
+        const newPlayer = { player_id: id}
+        const addPlayerUrl = constants.favoritePlayersUrl
+        fetch(addPlayerUrl, {
+          method:'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(newPlayer)
+        }).then(res=>res.json()).then(newData => {
+          console.log(newData)
+          newPlayer.id = newData.id
+          setFavoritePlayers([...favoritePlayers, newPlayer])
+        }).catch(e=>console.log("Post Error", e))
+      }
     } else {
-      setFavoritePlayers([id])
+      console.log("Insert")
+      const newPlayer = { player_id: id}
+      const addPlayerUrl = constants.favoritePlayersUrl
+      fetch(addPlayerUrl, {
+        method:'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(newPlayer)
+      }).then(res=>res.json()).then(newData => {
+        console.log(newData)
+        newPlayer.id = newData.id
+        setFavoritePlayers([newPlayer])
+      }).catch(e=>console.log("Post Error", e))
     }
   }
 

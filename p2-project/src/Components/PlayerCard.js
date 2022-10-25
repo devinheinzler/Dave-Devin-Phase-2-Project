@@ -8,7 +8,7 @@ const PlayerCard = (props) => {
 
     const player = props.player
 
-    const playerUrl = constants.playersUrl + "?player_id=" + player
+    const playerUrl = constants.playersUrl + "?player_id=" + player.player_id
 
     useEffect(
         () => {
