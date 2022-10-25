@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 const teamsUrl = `http://localhost:3001/teams`
+const playersUrl = "http://localhost:3001/players?team_id="
 
 
 function TeamCard({teamIn}) {
     const [team, setTeam] = useState({})
+    const [players, setPlayers] = useState([])
     
     const params = useParams()
 
@@ -13,7 +15,14 @@ function TeamCard({teamIn}) {
 
     useEffect(
         () => {
-            fetch(teamsUrl + "/" + params.teamId).then(res=>res.json()).then(team=>setTeam(team))
+            fetch(teamsUrl + "/" + params.teamId).then(res=>res.json()).
+                then(team=>{
+                    setTeam(team)
+                    fetch(playersUrl + params.teamId).then(res=>res.json()).then(players=>{
+                        setPlayers(players)
+                        console.log(players)
+                    })
+                })
         }, []
     )
 
@@ -25,6 +34,10 @@ function TeamCard({teamIn}) {
             <h4>
                 Founded in: {team.founded}
             </h4>
+            <h4> Roster </h4>
+            <ul>
+                {players.map(p=>{return <li>{p.name}</li>})}
+            </ul>
         </div>
     )
 }
