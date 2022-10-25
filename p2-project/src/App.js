@@ -26,11 +26,24 @@ function App() {
 
     fetch(constants.favoritePlayersUrl)
       .then(r=> r.json())
-      .then(players => setFavoritePlayers(players))
+      .then(players => setFavoritePlayers(players.map(p=>p.id)))
   }, [])
 
   const teamClicked = () => {
     setTeamClickedVal(teamClickedVal + 1)
+  }
+
+  const favoriteClicked = (id) => {
+    console.log("favoriteClicked: ", id)
+    console.log(favoritePlayers)
+    if (favoritePlayers.length > 0) {
+      if (favoritePlayers.filter(p=>p==id).length > 0)
+        setFavoritePlayers(favoritePlayers.filter(p=>p != id))
+      else
+        setFavoritePlayers([...favoritePlayers, id])
+    } else {
+      setFavoritePlayers([id])
+    }
   }
 
   return (
@@ -44,7 +57,7 @@ function App() {
         <div className='favorites'>
           <Switch>
             <Route path="/team/:teamId">
-              <TeamCard />
+              <TeamCard favoritePlayers={favoritePlayers} handleFavoriteClick={favoriteClicked}/>
             </Route>
             <Route exact path="/">
               <TeamList teams={teams} teamClicked={teamClicked}/>
