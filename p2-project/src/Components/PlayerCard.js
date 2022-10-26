@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react"
 import constants from "./Constants.js"
 
 const PlayerCard = (props) => {
-    const [playerInfo, setPlayerInfo] = useState([])
     const [name, setName] = useState("")
     const [teamName, setTeamName] = useState("")
 
     const player = props.player
 
+    console.log("Create Player Card For Id: ", player.player_id)
+
     const playerUrl = constants.playersUrl + "?player_id=" + player.player_id
+
+    console.log(playerUrl)
 
     useEffect(
         () => {

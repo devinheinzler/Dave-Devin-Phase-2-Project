@@ -6,6 +6,7 @@ const FavoritePlayer = (props) => {
         
     return (
         <div className='bordered'>
+            <h4>Favorite Players: </h4>
         <ul>
             {players.map(p => {return <li><PlayerCard player={p}/></li>})}
         </ul>

@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import ScoreScroll from './Components/ScoreScroll.js';
@@ -17,7 +16,7 @@ function App() {
 
   const [teams, setTeams] = useState([])
   const [favoritePlayers, setFavoritePlayers] = useState([])
-  const [teamClickedVal, setTeamClickedVal] = useState(0)
+  const [favoriteTeamId, setFavoriteTeamId] = useState(0)
 
   useEffect(() => {
     fetch(teamsUrl)
@@ -27,15 +26,17 @@ function App() {
     fetch(constants.favoritePlayersUrl)
       .then(r=> r.json())
       .then(players => setFavoritePlayers(players))
+
+    fetch(constants.favoriteTeamsUrl)
+      .then(r=>r.json())
+      .then(favoriteTeams=> {
+        if (favoriteTeams)
+        {
+          setFavoriteTeamId(favoriteTeams[0].team_id)
+        }
+      })
+    
   }, [])
-
-  const teamClicked = () => {
-    setTeamClickedVal(teamClickedVal + 1)
-  }
-
-  const updateFavoritePlayerInDatabase = (player, action) => {
-
-  }
 
   const favoriteClicked = (id) => {
     console.log("FavoriteClicked: ", id)
@@ -48,7 +49,11 @@ function App() {
         const deleteUrl = constants.favoritePlayersUrl + "/" + thisPlayer[0].id
         fetch(deleteUrl, {
           method:'DELETE'
-        }).then(res=>res.json()).then(setFavoritePlayers(favoritePlayers.filter(p=>p.player_id != id))).catch(e => console.log("Delete error: ", e))
+        }).then(res=>res.json()).then(() => {
+          const newFavorites = favoritePlayers.filter(p=> { return p.player_id != id})
+          console.log(newFavorites)
+          setFavoritePlayers(newFavorites)
+        }).catch(e => console.log("Delete error: ", e))
       }
       else {
         console.log("Insert")
@@ -84,6 +89,11 @@ function App() {
     }
   }
 
+  const favoriteTeamClicked = (id) => {
+    console.log("Favorite Team ", id)
+    setFavoriteTeamId(id);
+  }
+
   return (
     <Router>
     <div className="App">
@@ -95,15 +105,15 @@ function App() {
         <div className='favorites'>
           <Switch>
             <Route path="/team/:teamId">
-              <TeamCard favoritePlayers={favoritePlayers} handleFavoriteClick={favoriteClicked}/>
+              <TeamCard favoritePlayers={favoritePlayers} handleFavoriteClick={favoriteClicked} handleFavoriteTeamClicked={favoriteTeamClicked}/>
             </Route>
             <Route exact path="/">
-              <TeamList teams={teams} teamClicked={teamClicked}/>
+              <TeamList teams={teams}/>
             </Route>
           </Switch>
         </div>
         <div className='favorites'>
-          <FavoriteTeam/>
+          <FavoriteTeam favoriteTeam={favoriteTeamId}/>
           <FavoritePlayer favoritePlayers={favoritePlayers}/>
         </div>
       </div>
