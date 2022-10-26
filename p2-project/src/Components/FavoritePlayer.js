@@ -3,7 +3,7 @@ import PlayerCard from "./PlayerCard.js"
 
 const FavoritePlayer = (props) => {
     const players = props.favoritePlayers
-    console.log(players)
+        
     return (
         <div className='bordered'>
         <ul>

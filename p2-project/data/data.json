@@ -1404,22 +1404,6 @@
     {"player_id":332047,"position_id":3,"number":32,"captain":0,"injured":false,"minutes":87,"appearences":6,"lineups":null,"substitute_in":6,"substitute_out":null,"substitutes_on_bench":10,"goals":null,"owngoals":null,"assists":null,"saves":null,"inside_box_saves":null,"dispossesed":3,"interceptions":2,"yellowcards":null,"yellowred":null,"redcards":null,"tackles":5,"blocks":1,"hit_post":1,"cleansheets":2,"rating":"6.69","fouls":{"committed":2,"drawn":7},"crosses":{"total":3,"accurate":2},"dribbles":{"attempts":9,"success":2,"dribbled_past":2},"duels":{"total":33,"won":17},"passes":{"total":41,"accuracy":81,"key_passes":3},"penalties":{"won":null,"scores":null,"missed":null,"committed":null,"saves":null},"shots":{"shots_total":2,"shots_on_target":1,"shots_off_target":null}},{"player_id":34053,"position_id":4,"number":14,"captain":0,"injured":false,"minutes":244,"appearences":3,"lineups":3,"substitute_in":null,"substitute_out":2,"substitutes_on_bench":null,"goals":2,"owngoals":null,"assists":null,"saves":null,"inside_box_saves":null,"dispossesed":2,"interceptions":1,"yellowcards":null,"yellowred":null,"redcards":null,"tackles":4,"blocks":null,"hit_post":null,"cleansheets":1,"rating":"7.02","fouls":{"committed":4,"drawn":3},"crosses":{"total":null,"accurate":null},"dribbles":{"attempts":5,"success":2,"dribbled_past":1},"duels":{"total":29,"won":13},"passes":{"total":35,"accuracy":64,"key_passes":3},"penalties":{"won":null,"scores":1,"missed":null,"committed":null,"saves":null},"shots":{"shots_total":7,"shots_on_target":6,"shots_off_target":null}},{"player_id":4817,"position_id":1,"number":18,"captain":0,"injured":false,"minutes":null,"appearences":null,"lineups":null,"substitute_in":null,"substitute_out":null,"substitutes_on_bench":6,"goals":null,"owngoals":null,"assists":null,"saves":null,"inside_box_saves":null,"dispossesed":null,"interceptions":null,"yellowcards":null,"yellowred":null,"redcards":null,"tackles":null,"blocks":null,"hit_post":null,"cleansheets":null,"rating":null,"fouls":{"committed":null,"drawn":null},"crosses":{"total":null,"accurate":null},"dribbles":{"attempts":null,"success":null,"dribbled_past":null},"duels":{"total":null,"won":null},"passes":{"total":null,"accuracy":null,"key_passes":null},"penalties":{"won":null,"scores":null,"missed":null,"committed":null,"saves":null},"shots":{"shots_total":null,"shots_on_target":null,"shots_off_target":null}}
 ],
 "favoritePlayers": [
-    {
-        "id": 1502,
-        "name": "Tom Davies",
-        "teamName": "Everton",
-        "minutes": 101,
-        "goals": 3,
-        "assists": 5
-    },
-    {
-        "id": 1505,
-        "name": "Richarlison",
-        "teamName": "Tottenham",
-        "minutes": 1100,
-        "goals": 3,
-        "assists": 6
-    }
 ],
 "favoriteTeams": [
     
