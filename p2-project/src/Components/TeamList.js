@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react"
 import { Link } from 'react-router-dom'
 import TeamCard from "./TeamCard.js"
 import './TeamList.css'
+import League from "./League.js"
+
+const leaguesUrl = `http://localhost:3001/leagues`
 
 function TeamList (props) {
 
 const [clickedTeam, setClickedTeam] = useState({})
+const [leagues, setLeagues] = useState([])
 
 function handleClick(team) {
     console.log(team)
@@ -16,22 +20,23 @@ function handleClick(team) {
 
 const teams = props.teams
 
+useEffect(() => {
+    fetch(leaguesUrl)
+        .then(r => r.json())
+        .then(leagueData => setLeagues(leagueData))
+}, [])
 
-    return (
-        <div> 
-            {teams.map(team => 
-                <div className="card-list" key={team.id}>
-                    <ul>
-                        {/* <li onClick={() => handleClick(team)}>{team.name} ({team.short_code})</li> */}
-                        <Link to={`/team/${team.id}`}>{team.name} {`(${team.short_code})`}</Link>
-                    </ul>
-                </div>
-                )
+return (
+    <div> 
+            {
+                leagues.map(league => {
+                    const leagueTeams = teams.filter(team => team.current_season_id === league.current_season_id)
+                    return <League league={league} leagueTeams={leagueTeams} />
+                })
             }
             {
                 clickedTeam.name ? 
-                <TeamCard team={clickedTeam}/> : null
-                
+                <TeamCard team={clickedTeam}/> : null  
             }
         </div>
     )
