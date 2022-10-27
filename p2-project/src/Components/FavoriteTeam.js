@@ -1,7 +1,13 @@
+import { Header, Segment } from "semantic-ui-react"
+
 const FavoriteTeam = () => {
     return (
         <div className='bordered'>
-        <h1>FavoriteTeam</h1>
+              <Header
+                as='h2'
+                content='Favorite Team'
+                subheader='Add your favorite teams:'
+  />
         </div>
     )
 }
