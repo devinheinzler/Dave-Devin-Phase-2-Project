@@ -45,7 +45,6 @@ function App() {
   }, [])
 
   const favoriteClicked = (id, name, teamName) => {
-    console.log("favoriteClicked: ", id)
     if (favoritePlayers.length > 0 && favoritePlayers.filter(p=>p.player_id==id).length > 0) {
       const thisPlayer = favoritePlayers.filter(p=>p.player_id==id)
       if (thisPlayer.length > 0)
