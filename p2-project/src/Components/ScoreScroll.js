@@ -12,31 +12,26 @@ const ScoreScroll = (props) => {
           const url = `${constants.externalUrl}${constants.livescores}?api_token=${process.env.REACT_APP_API_TOKEN}`
           console.log(url)
           let interval
-          if (scoreCalls < 3 || true)
-          {
-            interval = setInterval(
-                () => {
-                    fetch(url).then(res=>
-                        {
-                            setScoreCalls(scoreCalls + 1)
-                            return res.json()
-                        }).then(
-                        scores => {
-                            setScores(scores.data)
-                        }
-                    ).catch(e=>console.log(e))
-                }, scoreCalls > 1 ? 300000 : 300
-            )
-          } else if (scoreCalls > 0) {
-            clearInterval(interval)
-          }
+          interval = setInterval(
+              () => {
+                  fetch(url).then(res=>
+                      {
+                          setScoreCalls(scoreCalls + 1)
+                          return res.json()
+                      }).then(
+                      scores => {
+                          setScores(scores.data)
+                      }
+                  ).catch(e=>console.log(e))
+              }, scoreCalls > 1 ? 300000 : 300
+          )
 
           return () => clearInterval(interval)
         }, [scores, scoreCalls]
       )
 
       const getScoreText = () => {
-        // return "SOME LONG TEXT THAT CAN SCROLL IN THE STRING WHILE WE'WRESDlkjfsdjlkfds"
+        if (scores.length == 0) return "Call To Live Scores Failed"
         let text = ""
         scores.forEach(s => {
           let homeTeamName = s.localteam_id
