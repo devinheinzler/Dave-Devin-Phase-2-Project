@@ -16,16 +16,22 @@ function App() {
 
   const [teams, setTeams] = useState([])
   const [favoritePlayers, setFavoritePlayers] = useState([])
-  const [favoriteTeamId, setFavoriteTeamId] = useState(0)
+  const [favoriteTeamId, setFavoriteTeamId] = useState(-1)
 
   useEffect(() => {
     fetch(teamsUrl)
         .then(r => r.json())
-        .then(teamsData => setTeams(teamsData))
+        .then(teamsData => 
+          {
+            setTeams(teamsData)
+            fetch(constants.favoritePlayersUrl)
+              .then(r=> r.json())
+              .then(players => {
+                setFavoritePlayers(players)
+              })
+          })
 
-    fetch(constants.favoritePlayersUrl)
-      .then(r=> r.json())
-      .then(players => setFavoritePlayers(players))
+
 
     fetch(constants.favoriteTeamsUrl)
       .then(r=>r.json())
@@ -38,42 +44,23 @@ function App() {
     
   }, [])
 
-  const favoriteClicked = (id) => {
-    console.log("FavoriteClicked: ", id)
-    if (favoritePlayers.length > 0) {
+  const favoriteClicked = (id, name, teamName) => {
+    console.log("favoriteClicked: ", id)
+    if (favoritePlayers.length > 0 && favoritePlayers.filter(p=>p.player_id==id).length > 0) {
       const thisPlayer = favoritePlayers.filter(p=>p.player_id==id)
       if (thisPlayer.length > 0)
       {
-        console.log("Remove")
         // remove from database
         const deleteUrl = constants.favoritePlayersUrl + "/" + thisPlayer[0].id
         fetch(deleteUrl, {
           method:'DELETE'
         }).then(res=>res.json()).then(() => {
           const newFavorites = favoritePlayers.filter(p=> { return p.player_id != id})
-          console.log(newFavorites)
           setFavoritePlayers(newFavorites)
         }).catch(e => console.log("Delete error: ", e))
       }
-      else {
-        console.log("Insert")
-        const newPlayer = { player_id: id}
-        const addPlayerUrl = constants.favoritePlayersUrl
-        fetch(addPlayerUrl, {
-          method:'POST',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify(newPlayer)
-        }).then(res=>res.json()).then(newData => {
-          console.log(newData)
-          newPlayer.id = newData.id
-          setFavoritePlayers([...favoritePlayers, newPlayer])
-        }).catch(e=>console.log("Post Error", e))
-      }
     } else {
-      console.log("Insert")
-      const newPlayer = { player_id: id}
+      const newPlayer = { player_id: id, name: name, team_name: teamName}
       const addPlayerUrl = constants.favoritePlayersUrl
       fetch(addPlayerUrl, {
         method:'POST',
@@ -82,16 +69,29 @@ function App() {
         },
         body: JSON.stringify(newPlayer)
       }).then(res=>res.json()).then(newData => {
-        console.log(newData)
-        newPlayer.id = newData.id
-        setFavoritePlayers([newPlayer])
+        setFavoritePlayers([...favoritePlayers, newPlayer])
       }).catch(e=>console.log("Post Error", e))
     }
   }
 
   const favoriteTeamClicked = (id) => {
-    console.log("Favorite Team ", id)
-    setFavoriteTeamId(id);
+    // if (id == favoriteTeamId)
+    //   return
+    // console.log("Favorite Team ", id)
+    // if (favoriteTeamId == -1) {
+    //   const newFavoriteTeam = { team_id: id}
+    //   fetch(constants.favoriteTeamsUrl, {
+    //     method: 'POST',
+    //     headers : {
+    //       'Content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(newFavoriteTeam)
+    //   }).then(res=>res.json()).then(() => setFavoriteTeamId(id))
+    // } else {
+    //   fetch
+    // }
+
+    // setFavoriteTeamId(id);
   }
 
   return (
@@ -114,7 +114,7 @@ function App() {
         </div>
         <div className='favorites'>
           <FavoriteTeam favoriteTeam={favoriteTeamId}/>
-          <FavoritePlayer favoritePlayers={favoritePlayers}/>
+          <FavoritePlayer favoritePlayers={favoritePlayers} unfavorite={favoriteClicked}/>
         </div>
       </div>
     </div>

@@ -3,12 +3,14 @@ import PlayerCard from "./PlayerCard.js"
 
 const FavoritePlayer = (props) => {
     const players = props.favoritePlayers
+
+    console.log(players)
         
     return (
         <div className='bordered'>
             <h4>Favorite Players: </h4>
         <ul>
-            {players.map(p => {return <li><PlayerCard player={p}/></li>})}
+            {players.map(p => {return <li><PlayerCard player={p} unfavorite={props.unfavorite}/></li>})}
         </ul>
         {/* <iframe src={`https://www.google.com/search?igu=1&ei=&q=${players[0].name} AND ${players[0].teamName}`}></iframe> */}
         </div>

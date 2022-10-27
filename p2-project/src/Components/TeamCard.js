@@ -71,7 +71,7 @@ function TeamCard(props) {
             <br></br>
             <th>
                 {getPlayers().map(p=>{
-                    return <tr><td>{p.name}</td><td><button onClick={() => props.handleFavoriteClick(p.player_id)}>{isFavorite(p.player_id)}</button></td></tr>})}
+                    return <tr><td>{p.name}</td><td><button onClick={() => props.handleFavoriteClick(p.player_id, p.name, team.name)}>{isFavorite(p.player_id)}</button></td></tr>})}
             </th>
             <br/>
             <Link to="/">Back To Teams</Link>
