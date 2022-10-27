@@ -17,8 +17,11 @@ function App() {
   const [teams, setTeams] = useState([])
   const [favoritePlayers, setFavoritePlayers] = useState([])
   const [favoriteTeamId, setFavoriteTeamId] = useState(-1)
+  const [shortTeams, setShortTeams] = useState([])
 
   useEffect(() => {
+    fetch(constants.shortTeamsUrl).then(r=>r.json()).then(short_teams=>setShortTeams(short_teams))
+
     fetch(teamsUrl)
         .then(r => r.json())
         .then(teamsData => 
@@ -59,17 +62,21 @@ function App() {
         }).catch(e => console.log("Delete error: ", e))
       }
     } else {
-      const newPlayer = { player_id: id, name: name, team_name: teamName}
-      const addPlayerUrl = constants.favoritePlayersUrl
-      fetch(addPlayerUrl, {
-        method:'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(newPlayer)
-      }).then(res=>res.json()).then(newData => {
-        setFavoritePlayers([...favoritePlayers, newPlayer])
-      }).catch(e=>console.log("Post Error", e))
+      if (favoritePlayers.length > 4) {
+        alert("May only Favorite 5 Players")
+      } else {
+        const newPlayer = { player_id: id, name: name, team_name: teamName}
+        const addPlayerUrl = constants.favoritePlayersUrl
+        fetch(addPlayerUrl, {
+          method:'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(newPlayer)
+        }).then(res=>res.json()).then(newData => {
+          setFavoritePlayers([...favoritePlayers, newPlayer])
+        }).catch(e=>console.log("Post Error", e))
+      }
     }
   }
 
@@ -97,7 +104,7 @@ function App() {
     <Router>
     <div className="App">
       <div>
-        <ScoreScroll teams={teams}/>
+        <ScoreScroll teams={shortTeams}/>
       </div>
       <div className='side-by-side'>
       {/* <CountryContainer/> */}

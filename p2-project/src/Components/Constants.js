@@ -6,7 +6,8 @@ const constants = {
     livescores: 'livescores',
     favoritePlayersUrl: 'http://localhost:3001/favoritePlayers',
     playersUrl: 'http://localhost:3001/players',
-    teamsUrl: `http://localhost:3001/teams`
+    teamsUrl: `http://localhost:3001/teams`,
+    shortTeamsUrl: 'http://localhost:3001/short_teams'
 }
 
 export default constants
