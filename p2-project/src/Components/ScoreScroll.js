@@ -33,6 +33,7 @@ const ScoreScroll = (props) => {
       const getScoreText = () => {
         if (scores.length == 0) return "Call To Live Scores Failed"
         let text = ""
+        console.log(teams)
         scores.forEach(s => {
           let homeTeamName = s.localteam_id
           let homeCountry = "?"

@@ -1,0 +1,17 @@
+{
+    "favoritePlayers": [
+        {
+          "player_id": 1917,
+          "name": "Trent Alexander-Arnold",
+          "team_name": "Liverpool",
+          "id": 1
+        },
+        {
+          "player_id": 172611,
+          "name": "John McGinn",
+          "team_name": "Aston Villa",
+          "id": 2
+        }
+      ],
+      "favoriteTeams": []
+}

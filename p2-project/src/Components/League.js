@@ -11,25 +11,22 @@ function handleClick() {
 }
 
 
-
-
-    
-    const leagueTeams = props.leagueTeams.map(team => 
+    const getLeagueTeams = () => {return props.leagueTeams.map(team => 
         <div className="card-list" key={team.id}>
-            <List animated verticalAlign='middle'>
+            
                 <List.Item>
                     <List.Content>
-                        <Link to={`/team/${team.id}`}>{team.name} {`(${team.short_code})`}</Link>
+                        <List.Header><Link to={`/team/${team.id}`}>{team.name} {`(${team.short_code})`}</Link></List.Header>
                     </List.Content>
                 </List.Item>
-            </List>    
         </div>
         )
+    }
     return (
         <div onClick={handleClick}>
             <h3>{props.league.name}</h3>
             {
-                showList ? leagueTeams : null 
+                showList ? <List animated verticalAlign='middle'> {getLeagueTeams() } </List> : null 
             }
         </div>   
     )
