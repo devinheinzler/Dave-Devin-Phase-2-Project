@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import constants from "./Constants.js"
+import { Header, Button, Icon } from 'semantic-ui-react'
 
 const teamsUrl = constants.teamsUrl
 const playersUrl = constants.playersUrl + "?team_id="
@@ -58,8 +59,13 @@ function TeamCard(props) {
     }
 
     return ( 
+        
         <div className="card" key={team.id}>
-            <div className="side-by-side"><h2>{team.name} ({team.short_code})</h2><button onClick={() => props.handleFavoriteTeamClicked(team.id)}>{isFavoriteTeam(team.id)}</button></div>
+            <div className="side-by-side">
+                
+                <h2>{team.name} ({team.short_code})</h2>
+                <button onClick={() => props.handleFavoriteTeamClicked(team.id)}>{isFavoriteTeam(team.id)}</button>
+            </div>
             <h3>{team.twitter}</h3>
             <img src={team.logo_path} alt={team.name} />
             <h4>

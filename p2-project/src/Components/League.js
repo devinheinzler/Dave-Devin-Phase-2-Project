@@ -12,7 +12,7 @@ function handleClick() {
 
 
     const getLeagueTeams = () => {return props.leagueTeams.map(team => 
-                <List.Item>
+                <List.Item >
                     <List.Content>
                         <List.Header><Link to={`/team/${team.id}`}>{team.name} {`(${team.short_code})`}</Link></List.Header>
                     </List.Content>
