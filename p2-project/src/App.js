@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import ScoreScroll from './Components/ScoreScroll.js';
-import CountryContainer from './Components/CountryContainer.js';
-import ConstantComponent from './Components/ConstantComponent.js';
+import PlayerDetail from './Components/PlayerDetail.js'
 import constants from "./Components/Constants.js"
 import TeamList from './Components/TeamList.js';
 import TeamCard from './Components/TeamCard.js';
 import FavoritePlayer from './Components/FavoritePlayer.js';
 import FavoriteTeam from './Components/FavoriteTeam.js';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch  } from 'react-router-dom'
 
 const teamsUrl = `http://localhost:3001/teams`
 
@@ -47,7 +46,7 @@ function App() {
     
   }, [])
 
-  const favoriteClicked = (id, name, teamName) => {
+  const favoriteClicked = (id, name, teamName, teamId) => {
     if (favoritePlayers.length > 0 && favoritePlayers.filter(p=>p.player_id==id).length > 0) {
       const thisPlayer = favoritePlayers.filter(p=>p.player_id==id)
       if (thisPlayer.length > 0)
@@ -65,7 +64,7 @@ function App() {
       if (favoritePlayers.length > 4) {
         alert("May only Favorite 5 Players")
       } else {
-        const newPlayer = { player_id: id, name: name, team_name: teamName}
+        const newPlayer = { player_id: id, name: name, team_name: teamName, team_id: teamId}
         const addPlayerUrl = constants.favoritePlayersUrl
         fetch(addPlayerUrl, {
           method:'POST',
@@ -125,6 +124,9 @@ function App() {
           <Switch>
             <Route path="/team/:teamId">
               <TeamCard favoritePlayers={favoritePlayers} favoriteTeamId={favoriteTeamId} handleFavoriteClick={favoriteClicked} handleFavoriteTeamClicked={favoriteTeamClicked}/>
+            </Route>
+            <Route path='/playerDetail/:playerId/:teamId'>
+              <PlayerDetail teams={teams}/>
             </Route>
             <Route exact path="/">
               <TeamList teams={teams}/>

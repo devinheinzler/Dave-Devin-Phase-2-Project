@@ -16,12 +16,13 @@ code {
   display: inline-flex;
 }
 
-.favorites {
+/* .favorites {
   width: 40%;
-}
+} */
 
 .bordered {
   border-style: solid;
+  width: 4000;
 }
 
 .float-left {

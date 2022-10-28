@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Link } from 'react-router-dom'
 import constants from "./Constants.js"
 
 const PlayerCard = (props) => {
@@ -8,13 +9,11 @@ const PlayerCard = (props) => {
     const player = props.player
 
     return (
-        <h2>{player.name}, {player.team_name} <button onClick={
+        <>
+        <h2>{player.name}, {player.team_name}</h2> <button onClick={
             () => {props.unfavorite(player.player_id, player.name, player.team_name)}
-        }>🤍</button></h2>
-        // <div className="card">
-        //     <h2>{playerInfo.name}</h2>
-        //     {/* <h3>{playerInfo.team_id}</h3> */}
-        // </div>
+        }>🤍</button>   <Link to={`/playerDetail/${player.player_id}/${player.team_id}`} ><button>Details</button></Link>
+        </>
     )
 }
 

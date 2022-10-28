@@ -17,8 +17,6 @@ function TeamCard(props) {
     const favoritePlayers = props.favoritePlayers
     const favoriteTeamId = props.favoriteTeamId
 
-    console.log("In Team Card: favorite Team = ", favoriteTeamId, " teamId = ", team.id)
-
     useEffect(
         () => {
             fetch(teamsUrl + "/" + params.teamId).then(res=>res.json()).
@@ -89,10 +87,7 @@ function TeamCard(props) {
             <br></br>
             <th>
                 {getPlayers().map(p=>{
-                    return <tr><td>{p.name}</td><td>
-                        <button animated onClick={() => props.handleFavoriteClick(p.player_id, p.name, team.name)}>{isFavorite(p.player_id)}</button>
-                        </td></tr>
-                    })}
+                    return <tr><td>{p.name}</td><td><button onClick={() => props.handleFavoriteClick(p.player_id, p.name, team.name, team.id)}>{isFavorite(p.player_id)}</button></td></tr>})}
             </th>
             <br/>
             <Button icon labelPosition='left'>
