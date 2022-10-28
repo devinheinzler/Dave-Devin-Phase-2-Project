@@ -1,18 +1,5 @@
 {
-  "favoritePlayers": [
-    {
-      "player_id": 32640,
-      "name": "Naby Keïta",
-      "team_name": "Liverpool",
-      "id": 5
-    },
-    {
-      "player_id": 4125,
-      "name": "Mohamed Salah",
-      "team_name": "Liverpool",
-      "id": 6
-    }
-  ],
+  "favoritePlayers": [],
   "favoriteTeams": [
     {
       "team_id": 8,
