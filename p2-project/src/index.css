@@ -23,3 +23,7 @@ code {
 .bordered {
   border-style: solid;
 }
+
+.float-left {
+  float: left;
+}

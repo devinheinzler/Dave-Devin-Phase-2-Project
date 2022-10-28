@@ -12,21 +12,18 @@ function handleClick() {
 
 
     const getLeagueTeams = () => {return props.leagueTeams.map(team => 
-        
-            
                 <List.Item>
                     <List.Content>
                         <List.Header><Link to={`/team/${team.id}`}>{team.name} {`(${team.short_code})`}</Link></List.Header>
                     </List.Content>
                 </List.Item>
-        
         )
     }
     return (
         <div onClick={handleClick}>
             <h3>{props.league.name}</h3>
             {
-                showList ? <List animated verticalAlign='middle'> {getLeagueTeams() } </List> : null 
+                showList ? <div className="float-left"><List animated verticalAlign='middle'> {getLeagueTeams() } </List></div> : null 
             }
         </div>   
     )

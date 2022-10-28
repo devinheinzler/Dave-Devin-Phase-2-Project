@@ -16,6 +16,8 @@ function TeamCard(props) {
     const favoritePlayers = props.favoritePlayers
     const favoriteTeamId = props.favoriteTeamId
 
+    console.log("In Team Card: favorite Team = ", favoriteTeamId, " teamId = ", team.id)
+
     useEffect(
         () => {
             fetch(teamsUrl + "/" + params.teamId).then(res=>res.json()).

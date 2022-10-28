@@ -81,23 +81,36 @@ function App() {
   }
 
   const favoriteTeamClicked = (id) => {
-    // if (id == favoriteTeamId)
-    //   return
-    // console.log("Favorite Team ", id)
-    // if (favoriteTeamId == -1) {
-    //   const newFavoriteTeam = { team_id: id}
-    //   fetch(constants.favoriteTeamsUrl, {
-    //     method: 'POST',
-    //     headers : {
-    //       'Content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify(newFavoriteTeam)
-    //   }).then(res=>res.json()).then(() => setFavoriteTeamId(id))
-    // } else {
-    //   fetch
-    // }
+    if (id == favoriteTeamId)
+      return
+    console.log("Favorite Team ", id)
+    const newFavoriteTeam = { team_id: id}
+    if (favoriteTeamId == -1) {
+      fetch(constants.favoriteTeamsUrl, {
+        method: 'POST',
+        headers : {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(newFavoriteTeam)
+      }).then(res=>res.json()).then(() => setFavoriteTeamId(id))
+    } else {
+      const patchUrl = constants.favoriteTeamsUrl + "/1"
+      newFavoriteTeam.id = 1
+      fetch(patchUrl, {
+        method: 'PATCH',
+        headers : {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(newFavoriteTeam)
+      }).then(res=>res.json()).then(() => setFavoriteTeamId(id))
+    }
+  }
 
-    // setFavoriteTeamId(id);
+  const getFavoriteTeam = () => {
+    if (favoriteTeamId > 0)
+      return teams.filter(t => t.id == favoriteTeamId)
+    else
+      return []
   }
 
   return (
@@ -111,7 +124,7 @@ function App() {
         <div className='favorites'>
           <Switch>
             <Route path="/team/:teamId">
-              <TeamCard favoritePlayers={favoritePlayers} handleFavoriteClick={favoriteClicked} handleFavoriteTeamClicked={favoriteTeamClicked}/>
+              <TeamCard favoritePlayers={favoritePlayers} favoriteTeamId={favoriteTeamId} handleFavoriteClick={favoriteClicked} handleFavoriteTeamClicked={favoriteTeamClicked}/>
             </Route>
             <Route exact path="/">
               <TeamList teams={teams}/>
@@ -119,7 +132,7 @@ function App() {
           </Switch>
         </div>
         <div className='favorites'>
-          <FavoriteTeam favoriteTeam={favoriteTeamId}/>
+          <FavoriteTeam favoriteTeam={favoriteTeamId} team={getFavoriteTeam()}/>
           <FavoritePlayer favoritePlayers={favoritePlayers} unfavorite={favoriteClicked}/>
         </div>
       </div>
