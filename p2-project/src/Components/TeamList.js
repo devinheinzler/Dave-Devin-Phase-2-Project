@@ -27,7 +27,7 @@ useEffect(() => {
 }, [])
 
 return (
-    <div> 
+    <div className="leagues"> 
             {
                 leagues.map(league => {
                     const leagueTeams = teams.filter(team => team.current_season_id === league.current_season_id)

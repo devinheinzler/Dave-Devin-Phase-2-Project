@@ -1,0 +1,23 @@
+{
+  "favoritePlayers": [
+    {
+      "player_id": 96575,
+      "name": "Frédéric Guilbert",
+      "team_name": "Aston Villa",
+      "id": 1
+    },
+    {
+      "player_id": 957,
+      "name": "Jed Steer",
+      "team_name": "Aston Villa",
+      "id": 2
+    },
+    {
+      "player_id": 12145,
+      "name": "Ollie Watkins",
+      "team_name": "Aston Villa",
+      "id": 3
+    }
+  ],
+  "favoriteTeams": []
+}

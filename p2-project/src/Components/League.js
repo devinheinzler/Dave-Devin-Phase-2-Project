@@ -12,14 +12,14 @@ function handleClick() {
 
 
     const getLeagueTeams = () => {return props.leagueTeams.map(team => 
-        <div className="card-list" key={team.id}>
+        
             
                 <List.Item>
                     <List.Content>
                         <List.Header><Link to={`/team/${team.id}`}>{team.name} {`(${team.short_code})`}</Link></List.Header>
                     </List.Content>
                 </List.Item>
-        </div>
+        
         )
     }
     return (
@@ -30,6 +30,7 @@ function handleClick() {
             }
         </div>   
     )
+
 }
 
 export default League
